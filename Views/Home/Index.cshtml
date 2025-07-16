@@ -1,0 +1,49 @@
+﻿<html>
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+    @*<link href="/Content/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">*@
+
+    <style>
+        .custom-font {
+            font-family: 'Roboto Slab', serif;
+        }
+    </style>
+</head>
+
+
+<body class="d-flex flex-column min-vh-100">
+
+    <header class="container mb-5 mt-5">
+        <h1 class="text-center text-primary  display-4 custom-font">UserManagementCrudApp</h1>
+    </header>
+
+    <hr class="border border-3 border-dark"> <!-- 3px thick dark line -->
+
+    <main class="container flex-grow-1 d-flex align-items-center py-5">
+        <nav class="row justify-content-center w-100">
+            <div class="col-3 d-grid">
+                <a href="/home/create" class="btn btn-primary">Create View</a>
+            </div>
+            <div class="col-3 d-grid">
+                <a href="/home/read" class="btn btn-primary">Read View</a>
+            </div>
+            <div class="col-3 d-grid">
+                <a href="/home/update" class="btn btn-primary">Update View</a>
+            </div>
+            <div class="col-3 d-grid">
+                <a href="/home/delete" class="btn btn-primary">Delete View</a>
+            </div>
+        </nav>
+    </main>
+    <hr class="border border-3 border-dark"> <!-- 3px thick dark line -->
+
+
+    <footer class="container mt-auto mb-5">
+        <small class="d-block text-center text-primary">&copy 2025 UserManagementCrudApp </small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    @*<script src="Scripts/bootstrap.bundle.min.js" crossorigin="anonymous"></script>*@
+
+</body>
+</html>
