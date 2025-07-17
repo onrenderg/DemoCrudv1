@@ -47,42 +47,26 @@ namespace UserManagementCrudApp.Controllers
         //context.SaveChanges(): Executes the SQL INSERT to persist the data in the Users table.
 
 
-        // GET: Show form only
+        // GET: Show all users immediately
         public ActionResult Read()
         {
-            return View(); // Model is null at first
-        }
-
-        // POST: Fetch and show all users
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Read(string load)
-        {
             using (var context = new UserContext())
             {
                 var users = context.Users.ToList();
-                return View(users); // Pass list of users to view
+                return View(users); // Directly pass the list to the view
             }
         }
 
-
-        // GET: Show update page
+        // GET: Load and show all users immediately
         public ActionResult Update()
         {
-            return View();
-        }
-
-        // POST: Load users into view
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Update(string load)
-        {
             using (var context = new UserContext())
             {
                 var users = context.Users.ToList();
-                return View(users); // Return list to Update.cshtml
+                return View(users); // Pass users to the view
             }
         }
+
 
         // POST: Update operation handler
         [HttpPost]
@@ -106,23 +90,16 @@ namespace UserManagementCrudApp.Controllers
 
 
 
-        // GET: Delete view
+        // GET: Delete view and load users
         public ActionResult Delete()
-        {
-            return View();
-        }
-
-        // POST: Show all users with delete buttons
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(string load)
         {
             using (var context = new UserContext())
             {
                 var users = context.Users.ToList();
-                return View(users);
+                return View(users); // Directly return users to the view
             }
         }
+
 
         // POST: Delete by ID
         [HttpPost]
