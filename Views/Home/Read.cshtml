@@ -1,13 +1,11 @@
 ﻿@model List<UserManagementCrudApp.Models.User>
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <!-- Content section -->
 <div class="container flex-grow-1 py-5">
-    <h2 class="mb-4"> All Users </h2>
-
+    <h2 class="mb-4">All Users</h2>
 
     @if (Model != null && Model.Any())
     {
@@ -15,6 +13,7 @@
             <table class="table table-bordered table-striped align-middle text-center">
                 <thead class="table-dark">
                     <tr>
+                        
                         <th>Name</th>
                         <th>Email</th>
                         <th>Phone</th>
@@ -24,25 +23,22 @@
                     @foreach (var user in Model)
                     {
                         <tr>
-                            @using (Html.BeginForm("UpdateOperation", "Home", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("Id", user.Id)
-                                <td>
-                                    <input name="Name" class="form-control" value="@user.Name" />
-                                </td>
-                                <td>
-                                    <input name="Email" type="email" class="form-control" value="@user.Email" />
-                                </td>
-                                <td>
-                                    <input name="PhoneNumber" class="form-control" value="@user.PhoneNumber" />
-                                </td>
-                            }
+                            
+                            <td>@user.Name</td>
+                            <td>@user.Email</td>
+                            <td>@user.PhoneNumber</td>
                         </tr>
                     }
                 </tbody>
             </table>
         </div>
     }
+    else
+    {
+        <div class="alert alert-info text-center">
+            <h4>No Users Found</h4>
+            <p>There are currently no users in the system.</p>
+            <a href="/home/create" class="btn btn-primary">Add First User</a>
+        </div>
+    }
 </div>
-

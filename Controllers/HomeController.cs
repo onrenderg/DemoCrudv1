@@ -53,19 +53,17 @@ namespace UserManagementCrudApp.Controllers
                 return View(users); // Directly pass the list to the view
             }
         }
-
-        // GET: Load and show all users immediately
-        public ActionResult Update()
+        // Controller
+        public ActionResult Update(int? editId = null)
         {
             using (var context = new UserContext())
             {
+                ViewBag.EditId = editId;
                 var users = context.Users.ToList();
-                return View(users); // Pass users to the view
+                return View(users);
             }
         }
 
-
-        // POST: Update operation handler
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult UpdateOperation(User user)
@@ -77,13 +75,13 @@ namespace UserManagementCrudApp.Controllers
                     context.Entry(user).State = System.Data.Entity.EntityState.Modified;
                     context.SaveChanges();
                 }
-
+                TempData["SuccessMessage"] = "User updated successfully!";
                 return RedirectToAction("Update");
             }
 
-            return View("UpdateOperation", user); // Optional edit view
+            // If model invalid, stay in edit mode
+            return RedirectToAction("Update", new { editId = user.Id });
         }
-
 
 
 
@@ -110,12 +108,12 @@ namespace UserManagementCrudApp.Controllers
                 {
                     context.Users.Remove(user);
                     context.SaveChanges();
+                    TempData["SuccessMessage"] = "User deleted successfully!";
                 }
             }
 
             return RedirectToAction("Delete");
         }
-
 
 
     }

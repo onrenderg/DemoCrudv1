@@ -1,52 +1,49 @@
 ﻿@model List<UserManagementCrudApp.Models.User>
-
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<!-- Main content -->
-<div class="container flex-grow-1 py-5">
-    <h2 class="mb-4">Updated Users</h2>
+<h2>Update Users</h2>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">@TempData["SuccessMessage"]</div>
+}
 
-
-    @if (Model != null && Model.Any())
-    {
-        <div class="table-responsive">
-            <table class="table table-bordered table-striped text-center align-middle">
-                <thead class="table-dark">
+<table class="table table-bordered">
+    <thead>
+        <tr><th>Name</th><th>Email</th><th>Phone</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+        @{
+            int? editId = ViewBag.EditId as int?;
+        }
+        @foreach (var user in Model)
+        {
+            if (editId == user.Id)
+            {
+                using (Html.BeginForm("UpdateOperation", "Home", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => user.Id)
                     <tr>
-                        <th>Name</th>
-                        <th>Email</th>
-                        <th>Phone</th>
-                        <th>Update</th>
+                        <td>@Html.TextBoxFor(m => user.Name, new { @name = "Name", @value = user.Name })</td>
+                        <td>@Html.TextBoxFor(m => user.Email, new { @name = "Email", @value = user.Email })</td>
+                        <td>@Html.TextBoxFor(m => user.PhoneNumber, new { @name = "PhoneNumber", @value = user.PhoneNumber })</td>
+                        <td><input type="submit" value="Update" class="btn btn-success" /></td>
                     </tr>
-                </thead>
-                <tbody>
-                    @foreach (var user in Model)
-                    {
-                        <tr>
-                            @using (Html.BeginForm("UpdateOperation", "Home", FormMethod.Post))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("Id", user.Id)
-                                <td>
-                                    <input name="Name" value="@user.Name" class="form-control" />
-                                </td>
-                                <td>
-                                    <input name="Email" value="@user.Email" type="email" class="form-control" />
-                                </td>
-                                <td>
-                                    <input name="PhoneNumber" value="@user.PhoneNumber" class="form-control" />
-                                </td>
-                                <td>
-                                    <input type="submit" value="Update" class="btn btn-success" />
-                                </td>
-                            }
-                        </tr>
-                    }
-                </tbody>
-            </table>
-        </div>
-    }
-</div>
-
+                }
+            }
+            else
+            {
+                <tr>
+                    <td>@user.Name</td>
+                    <td>@user.Email</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>
+                        <a href="@Url.Action("Update", new { editId = user.Id })" class="btn btn-primary">Edit</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
