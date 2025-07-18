@@ -32,19 +32,16 @@ namespace UserManagementCrudApp.Controllers
             {
                 using (var context = new UserContext())
                 {
-                    context.Users.Add(user);        // Add user to DbSet
-                    context.SaveChanges();          // Commit to database
+                    context.Users.Add(user);
+                    context.SaveChanges();
                 }
-                return RedirectToAction("Index");   // Redirect after success
+
+                TempData["SuccessMessage"] = "User created successfully!";
+                return RedirectToAction("Create");
             }
 
-            return View(user); // Show form again if validation fails
+            return View(user);
         }
-        //using (var context = new UserContext()): Creates an instance of the EF context(disposes after use).
-
-        //context.Users.Add(user): Stages the new user for insertion.
-
-        //context.SaveChanges(): Executes the SQL INSERT to persist the data in the Users table.
 
 
         // GET: Show all users immediately
